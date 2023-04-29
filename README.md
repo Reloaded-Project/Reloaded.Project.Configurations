@@ -71,6 +71,10 @@ To apply this to your project, do the following:
 In each project you should make a `.solutionItems` folder and add any useful files (as existing files) from the folder
 the `.sln` is contained in; such that it's visible from the IDE.
 
+## File Layout
+
+It is recommended to place all source code under either a `Source` folder or a `src` folder.
+
 ## Documentation
 
 If documentation is required, please follow the guidelines for [Reloaded MkDocs Theme](https://reloaded-project.github.io/Reloaded.MkDocsMaterial.Themes.R2/Pages/) 
