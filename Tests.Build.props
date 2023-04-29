@@ -1,0 +1,15 @@
+<Project>
+
+  <!-- Import a Directory.Build.props file located in the parent directory -->
+  <Import Project="$(MSBuildThisFileDirectory)..\Directory.Build.props" />
+
+  <ItemGroup>
+    <PackageReference Include="AutoFixture.AutoMoq" Version="4.18.0"/>
+    <PackageReference Include="AutoFixture.Xunit2" Version="4.18.0"/>
+    <PackageReference Include="FluentAssertions" Version="6.10.0"/>
+    <PackageReference Include="JetBrains.Annotations" Version="2023.2.0-eap2"/>
+    <PackageReference Include="Moq" Version="4.18.4"/>
+    <PackageReference Include="Xunit.DependencyInjection" Version="8.7.1"/>
+  </ItemGroup>
+
+</Project>
