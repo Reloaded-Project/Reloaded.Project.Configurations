@@ -153,6 +153,13 @@ csharp_space_between_square_brackets = false
 # License header
 file_header_template = Part of Reloaded Project or Reloaded3.LGPL/GPL licensed (depending on repo).Happy hacking 💜.
 
+# Throw on Undocumented Exceptions
+dotnet_diagnostic.RCS1138.severity = error # Add summary to documentation comment.
+dotnet_diagnostic.RCS1139.severity = error # Add summary element to documentation comment.
+dotnet_diagnostic.RCS1140.severity = error # Add exception to documentation comment.
+dotnet_diagnostic.RCS1141.severity = error # Add 'param' element to documentation comment.
+dotnet_diagnostic.RCS1142.severity = error # Add 'typeparam' element to documentation comment.
+
 # C++ Files
 [*.{cpp,h,in}]
 curly_bracket_next_line = true
