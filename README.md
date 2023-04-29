@@ -62,7 +62,7 @@ To apply this to your project, do the following:
 
 - Enable symlinks for your current project by running `git config core.symlinks true`.
 - Make symlink to `Reloaded.Project.Configurations/.editorconfig` in the root of your project.
-- On Windows this can be done by running `mklink ".editorconfig" "Reloaded.Project.Configurations/.editorconfig"`.
+- In PowerShell you can do `New-Item -Path ".editorconfig" -ItemType SymbolicLink -Value "Reloaded.Project.Configurations/.editorconfig"` as admin.
 - Or on Linux, you can do `ln -s "Reloaded.Project.Configurations/.editorconfig" ".editorconfig"`.
 
 ### .solutionItems
