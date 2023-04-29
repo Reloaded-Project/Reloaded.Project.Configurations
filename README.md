@@ -214,6 +214,15 @@ in your test project.
 If documentation is required, please follow the guidelines for [Reloaded MkDocs Theme](https://reloaded-project.github.io/Reloaded.MkDocsMaterial.Themes.R2/Pages/) 
 on how to set up documentation.
 
+## Auto Fix Public API Analyzer Warnings
+
+!!! tip
+
+    [Rider does not have a way to apply Roslyn code fixes in a larger scope](https://youtrack.jetbrains.com/issue/RIDER-18372),
+    so working with [Public API Analyzer](https://github.com/dotnet/roslyn-analyzers/blob/main/src/PublicApiAnalyzers/PublicApiAnalyzers.Help.md) might be painful.
+
+To work around this, a `Powershell` script `FixUndeclaredAPIs.ps1` is included in repo root.
+
 ## License
 
 This repository is licensed under the LGPLv3 license; as per the license of the Reloaded Project (sans. Reloaded

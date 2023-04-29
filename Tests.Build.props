@@ -1,7 +1,7 @@
 <Project>
 
   <!-- Import a Directory.Build.props file located in the parent directory -->
-  <Import Project="$(MSBuildThisFileDirectory)..\Directory.Build.props" />
+  <Import Project="$(MSBuildThisFileDirectory)./Directory.Build.props" />
 
   <ItemGroup>
     <PackageReference Include="AutoFixture.AutoMoq" Version="4.18.0"/>
