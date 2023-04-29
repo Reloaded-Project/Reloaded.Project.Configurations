@@ -7,7 +7,6 @@ This includes:
 - `Tests.Build.props` for common project settings for tests.  
 - `NuGet.Build.props` for common project settings that target NuGet.  
 - `Directory.Build.props` for common project settings.  
-- `Directory.Build.targets` for common project targets.  
 
 ## Usage
 
@@ -113,14 +112,15 @@ Replace `@main` with appropriate version tag if you want to pin to a specific ve
 Use the following template to run CI/CD for multiple target frameworks:
 
 ```yaml
-name: Build and Run
+name: Build, Test and Publish
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
+    tags:
+      - '*'
   pull_request:
-    branches:
-      - main
+    branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   build:
