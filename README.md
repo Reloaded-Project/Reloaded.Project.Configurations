@@ -14,7 +14,7 @@ This includes:
 To use this repository, add it as a submodule to your project.
 
 ```
-git submodule add https://github.com/Reloaded-Project/Reloaded.Project.Configurations.git ./Source/Reloaded.Project.Configurations
+git submodule add https://github.com/Reloaded-Project/Reloaded.Project.Configurations.git ./src/Reloaded.Project.Configurations
 ```
 
 Periodically update the submodule to the latest version.
@@ -69,11 +69,145 @@ To apply this to your project, do the following:
 ### .solutionItems
 
 In each project you should make a `.solutionItems` folder and add any useful files (as existing files) from the folder
-the `.sln` is contained in; such that it's visible from the IDE.
+the `.sln` is contained in; such that it's visible from the IDE. For example: `GitHub Actions`.
 
 ## File Layout
 
-It is recommended to place all source code under either a `Source` folder or a `src` folder.
+The following is the expected file layout for your project:
+
+```
+- docs/
+- src/
+```
+
+The `docs` folder should contain all documentation for your project (if present).  
+The `src` folder should contain all source code for your project.  
+
+## CI/CD Runs
+
+For CI runs, you can use the following composite steps to set up the required tools and SDKs:  
+
+```yaml
+- name: "Setup Reloaded Library SDKs & Components"
+- uses: Reloaded-Project/Reloaded.Project.Configurations/.github/actions/setup-sdks-components@main
+```
+
+```yaml
+# Showing default values, not all inputs are mandatory.
+# Refer to actual upload-coverage-packages file for descriptions.
+- name: "Upload Codecov Coverage, Changelog & NuGet Packages"
+- uses: Reloaded-Project/Reloaded.Project.Configurations/.github/actions/upload-coverage-packages@main
+  with:
+    code-coverage-path: './Coverage.xml'
+    changelog-path: './Changelog.md'
+    nupkg-glob: './src/*.nupkg'
+    nuget-key: ${{ secrets.NUGET_KEY }}
+    changelog-template: 'keepachangelog'
+    is-release: ${{ startsWith(github.ref, 'refs/tags/') }} # if 'true' publishes to GitHub Actions and NuGet
+```
+
+Replace `@main` with appropriate version tag if you want to pin to a specific version.
+
+### Cross Targeting CI/CD Runs
+
+Use the following template to run CI/CD for multiple target frameworks:
+
+```yaml
+name: Build and Run
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os:
+          - windows-latest
+          - ubuntu-latest
+          - macos-latest
+        targetFramework:
+          - net7.0
+          - net6.0
+          - net5.0
+          - netcoreapp3.1
+        platform:
+          - x64
+        include:
+          - os: windows-latest
+            targetFramework: net48
+            platform: x64
+          - os: windows-latest
+            targetFramework: net48
+            platform: x86
+          - os: windows-latest
+            targetFramework: net7.0
+            platform: x86
+          - os: windows-latest
+            targetFramework: net6.0
+            platform: x86
+          - os: windows-latest
+            targetFramework: net5.0
+            platform: x86
+          - os: windows-latest
+            targetFramework: netcoreapp3.1
+            platform: x86
+            
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
+      - name: Setup Reloaded Library SDKs & Components
+        uses: Reloaded-Project/Reloaded.Project.Configurations/.github/actions/setup-sdks-components@main
+      - name: Build Library
+        run: dotnet build -c Release -f ${{ matrix.targetFramework }} ./src
+      - name: Run Tests
+        run: dotnet test -c Release -f ${{ matrix.targetFramework }} ./src /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=./Coverage/
+      - name: "Upload Coverage"
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-${{ matrix.os }}-${{ matrix.targetFramework }}
+          path: Coverage/Coverage.xml
+  upload:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout Code"
+        uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
+      - name: "Setup Reloaded Library SDKs & Components"
+        uses: Reloaded-Project/Reloaded.Project.Configurations/.github/actions/setup-sdks-components@main
+      - name: Build Library
+        run: dotnet build -c Release ./src
+      - name: "Install ReportGenerator"
+        run: dotnet tool install --global dotnet-reportgenerator-globaltool
+      - name: "Download Coverage Artifacts"
+        uses: actions/download-artifact@v2
+        with:
+          name: coverage-*-*
+          path: artifacts
+      - name: "Merge Coverage Files"
+        run: reportgenerator -reports:artifacts/*/Coverage.xml -targetdir:merged -reporttypes:Cobertura
+      - name: "Upload Coverage & Packages"
+        uses: Reloaded-Project/Reloaded.Project.Configurations/.github/actions/upload-coverage-packages@main
+        with:
+          code-coverage-path: './Coverage.xml'
+          changelog-path: './Changelog.md'
+          nupkg-glob: './src/*.nupkg'
+          nuget-key: ${{ secrets.NUGET_KEY }}
+          changelog-template: 'keepachangelog'
+          is-release: ${{ startsWith(github.ref, 'refs/tags/') }}
+```
+
+The required components for reporting coverage should already be there provided `NuGet.Build.props` is included as instructed
+in your test project.
 
 ## Documentation
 
