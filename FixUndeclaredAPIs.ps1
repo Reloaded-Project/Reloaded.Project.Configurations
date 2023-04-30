@@ -1,6 +1,11 @@
-$numTargetFrameworks = 5
+param (
+    [Parameter(Mandatory=$true)]
+    [string]$CsProj
+)
+
+$numTargetFrameworks = 7
 $command = "dotnet"
-$arguments = @("format", "analyzers", "..", "--diagnostics", "RS0037", "RS0036", "RS0016", "RS0017")
+$arguments = @("format", "analyzers", $CsProj, "--diagnostics", "RS0037", "RS0036", "RS0016", "RS0017")
 
 for ($i = 1; $i -le $numTargetFrameworks; $i++)
 {

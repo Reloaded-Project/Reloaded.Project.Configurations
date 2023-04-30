@@ -158,6 +158,8 @@ dotnet_diagnostic.RCS1139.severity = error # Add summary element to documentatio
 dotnet_diagnostic.RCS1140.severity = error # Add exception to documentation comment.
 dotnet_diagnostic.RCS1141.severity = error # Add 'param' element to documentation comment.
 dotnet_diagnostic.RCS1142.severity = error # Add 'typeparam' element to documentation comment.
+dotnet_diagnostic.RCS1194.severity = suggestion # Exceptions must have constructor.
+dotnet_diagnostic.RCS1037.severity = warning # Whitespace in code.
 
 # C++ Files
 [*.{cpp,h,in}]

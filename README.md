@@ -222,6 +222,11 @@ on how to set up documentation.
     so working with [Public API Analyzer](https://github.com/dotnet/roslyn-analyzers/blob/main/src/PublicApiAnalyzers/PublicApiAnalyzers.Help.md) might be painful.
 
 To work around this, a `Powershell` script `FixUndeclaredAPIs.ps1` is included in repo root.
+Use like this:
+
+```powershell
+.\FixUndeclaredAPIs.ps1 ../Your.Project/Your.Project.csproj
+```
 
 ## License
 
