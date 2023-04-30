@@ -2,11 +2,12 @@
 
 This page hosts the common configurations for various parts of the Reloaded project.
 
-This includes:  
-- `.editorconfig` files for configuring code style.  
-- `Tests.Build.props` for common project settings for tests.  
-- `NuGet.Build.props` for common project settings that target NuGet.  
-- `Directory.Build.props` for common project settings.  
+This includes:
+
+- `.editorconfig` files for configuring code style.
+- `Tests.Build.props` for common project settings for tests.
+- `NuGet.Build.props` for common project settings that target NuGet.
+- `Directory.Build.props` for common project settings.
 
 ## Usage
 
@@ -30,6 +31,15 @@ For test projects, modify your `.csproj` to include `Tests.Build.props` as follo
 <Import Project="../Reloaded.Project.Configurations/Tests.Build.props" />
 ```
 
+You'll also need to add a startup class for Dependency Injection somewhere in the project
+
+```csharp
+public class Startup
+{
+    public void ConfigureServices(IServiceCollection services) { }
+}
+```
+
 ### NuGet.Build.props
 
 For packages that are shipped to NuGet, modify your `.csproj` to include `NuGet.Build.props` as follows:
@@ -39,6 +49,7 @@ For packages that are shipped to NuGet, modify your `.csproj` to include `NuGet.
 ```
 
 The following remaining properties should be manually specified per package:
+
 ```xml
 <PackageProjectUrl>https://github.com/Reloaded-Project/Reloaded.Memory</PackageProjectUrl>
 <Description>Package Description.</Description>
@@ -62,7 +73,9 @@ To apply this to your project, do the following:
 
 - Enable symlinks for your current project by running `git config core.symlinks true`.
 - Make symlink to `Reloaded.Project.Configurations/.editorconfig` in the root of your project.
-- In PowerShell you can do `New-Item -Path ".editorconfig" -ItemType SymbolicLink -Value "Reloaded.Project.Configurations/.editorconfig"` as admin.
+- In PowerShell you can
+  do `New-Item -Path ".editorconfig" -ItemType SymbolicLink -Value "Reloaded.Project.Configurations/.editorconfig"` as
+  admin.
 - Or on Linux, you can do `ln -s "Reloaded.Project.Configurations/.editorconfig" ".editorconfig"`.
 
 ### .solutionItems
@@ -80,11 +93,11 @@ The following is the expected file layout for your project:
 ```
 
 The `docs` folder should contain all documentation for your project (if present).  
-The `src` folder should contain all source code for your project.  
+The `src` folder should contain all source code for your project.
 
 ## CI/CD Runs
 
-For CI runs, you can use the following composite steps to set up the required tools and SDKs:  
+For CI runs, you can use the following composite steps to set up the required tools and SDKs:
 
 ```yaml
 - name: "Setup Reloaded Library SDKs & Components"
@@ -206,12 +219,14 @@ jobs:
           is-release: ${{ startsWith(github.ref, 'refs/tags/') }}
 ```
 
-The required components for reporting coverage should already be there provided `NuGet.Build.props` is included as instructed
+The required components for reporting coverage should already be there provided `NuGet.Build.props` is included as
+instructed
 in your test project.
 
 ## Documentation
 
-If documentation is required, please follow the guidelines for [Reloaded MkDocs Theme](https://reloaded-project.github.io/Reloaded.MkDocsMaterial.Themes.R2/Pages/) 
+If documentation is required, please follow the guidelines
+for [Reloaded MkDocs Theme](https://reloaded-project.github.io/Reloaded.MkDocsMaterial.Themes.R2/Pages/)
 on how to set up documentation.
 
 ## Auto Fix Public API Analyzer Warnings

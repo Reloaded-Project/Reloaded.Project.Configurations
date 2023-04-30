@@ -1,5 +1,5 @@
 param (
-    [Parameter(Mandatory=$true)]
+    [Parameter(Mandatory = $true)]
     [string]$CsProj
 )
 
@@ -9,6 +9,6 @@ $arguments = @("format", "analyzers", $CsProj, "--diagnostics", "RS0037", "RS003
 
 for ($i = 1; $i -le $numTargetFrameworks; $i++)
 {
-     Write-Host "Executing command: $command $($arguments -join ' ') (framework $i)"
-     & $command $arguments
+    Write-Host "Executing command: $command $( $arguments -join ' ' ) (framework $i)"
+    & $command $arguments
 }

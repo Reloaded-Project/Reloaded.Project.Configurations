@@ -1,7 +1,7 @@
 name: 'Upload Codecov Coverage, Changelog & NuGet Packages'
 description: 'Uploads all test coverage data and relevant NuGet Packages.'
 inputs:
-  code-coverage-path:  # id of input
+  code-coverage-path: # id of input
     description: 'Path to file containing code coverage'
     required: false
     default: './Coverage.xml'
