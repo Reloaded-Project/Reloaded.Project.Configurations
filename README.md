@@ -181,7 +181,7 @@ jobs:
       - name: Build Library
         run: dotnet build -c Release -f ${{ matrix.targetFramework }} ./src/Reloaded.<XXX>.Tests/Reloaded.<XXX>.Tests.csproj
       - name: Run Tests
-        run: dotnet test -c Release -f ${{ matrix.targetFramework }} ./src/Reloaded.<XXX>.Tests/Reloaded.<XXX>.Tests.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=./Coverage/
+        run: dotnet test -c Release -f ${{ matrix.targetFramework }} ./src/Reloaded.<XXX>.Tests/Reloaded.<XXX>.Tests.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=../../Coverage/
       - name: "Upload Coverage"
         uses: actions/upload-artifact@v3
         with:
