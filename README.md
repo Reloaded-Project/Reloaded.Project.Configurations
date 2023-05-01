@@ -181,12 +181,12 @@ jobs:
       - name: Build Library
         run: dotnet build -c Release -f ${{ matrix.targetFramework }} ./src/Reloaded.<XXX>.Tests/Reloaded.<XXX>.Tests.csproj
       - name: Run Tests
-        run: dotnet test -c Release -f ${{ matrix.targetFramework }} ./src/Reloaded.<XXX>.Tests/Reloaded.<XXX>.Tests.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=../../Coverage/
+        run: dotnet test -c Release -f ${{ matrix.targetFramework }} ./src/Reloaded.<XXX>.Tests/Reloaded.<XXX>.Tests.csproj --collect:"XPlat Code Coverage;Format=opencover;" --results-directory "Coverage"
       - name: "Upload Coverage"
         uses: actions/upload-artifact@v3
         with:
           name: coverage-${{ matrix.os }}-${{ matrix.targetFramework }}
-          path: Coverage/Coverage.xml
+          path: Coverage/*/coverage.opencover.xml
   upload:
     needs: build
     runs-on: ubuntu-latest
@@ -211,7 +211,7 @@ jobs:
       - name: "Upload Coverage & Packages"
         uses: Reloaded-Project/Reloaded.Project.Configurations/.github/actions/upload-coverage-packages@main
         with:
-          code-coverage-path: './Coverage.xml'
+          code-coverage-path: './merged/Cobertura.xml'
           changelog-path: './Changelog.md'
           nupkg-glob: './src/*.nupkg'
           nuget-key: ${{ secrets.NUGET_KEY }}

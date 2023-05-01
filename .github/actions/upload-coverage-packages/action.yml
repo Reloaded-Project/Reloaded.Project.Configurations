@@ -19,7 +19,7 @@ inputs:
   nuget-key: # id of input
     description: 'Key used to upload packages to nuget.org'
     required: false
-    default: ${{ secrets.NUGET_KEY }}
+    default: ""
 
   changelog-template: # id of input
     description: 'Template file used for auto-changelog'
@@ -28,13 +28,11 @@ inputs:
 
   is-release: # id of input
     description: 'Template file used for auto-changelog'
-    required: false
-    default: ${{ startsWith(github.ref, 'refs/tags/') }}
+    required: true
 
   release-tag: # id of input
     description: 'Tag associated with release, must be set if is-release is true'
-    required: false
-    default: ${{ github.ref_name }}
+    required: true
 
 runs:
   using: "composite"
@@ -58,7 +56,6 @@ runs:
         }
 
     - name: Upload NuGet Package Artifact
-      shell: pwsh
       uses: actions/upload-artifact@v2.2.4
       with:
         # Artifact name
