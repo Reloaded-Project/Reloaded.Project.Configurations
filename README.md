@@ -173,15 +173,15 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           submodules: 'recursive'
       - name: Setup Reloaded Library SDKs & Components
         uses: Reloaded-Project/Reloaded.Project.Configurations/.github/actions/setup-sdks-components@main
       - name: Build Library
-        run: dotnet build -c Release -f ${{ matrix.targetFramework }} ./src
+        run: dotnet build -c Release -f ${{ matrix.targetFramework }} ./src/Reloaded.<XXX>.Tests/Reloaded.<XXX>.Tests.csproj
       - name: Run Tests
-        run: dotnet test -c Release -f ${{ matrix.targetFramework }} ./src /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=./Coverage/
+        run: dotnet test -c Release -f ${{ matrix.targetFramework }} ./src/Reloaded.<XXX>.Tests/Reloaded.<XXX>.Tests.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=./Coverage/
       - name: "Upload Coverage"
         uses: actions/upload-artifact@v3
         with:
@@ -192,7 +192,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout Code"
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           submodules: 'recursive'
       - name: "Setup Reloaded Library SDKs & Components"
@@ -202,7 +202,7 @@ jobs:
       - name: "Install ReportGenerator"
         run: dotnet tool install --global dotnet-reportgenerator-globaltool
       - name: "Download Coverage Artifacts"
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: coverage-*-*
           path: artifacts
