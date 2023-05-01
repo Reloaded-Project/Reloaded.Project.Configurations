@@ -204,10 +204,10 @@ jobs:
       - name: "Download Coverage Artifacts"
         uses: actions/download-artifact@v3
         with:
-          name: coverage-*-*
-          path: artifacts
+            path: artifacts
       - name: "Merge Coverage Files"
-        run: reportgenerator -reports:artifacts/*/Coverage.xml -targetdir:merged -reporttypes:Cobertura
+        run: |
+            find ./artifacts -name 'coverage.opencover.xml' -exec reportgenerator -reports:{} -targetdir:merged -reporttypes:Cobertura \;
       - name: "Upload Coverage & Packages"
         uses: Reloaded-Project/Reloaded.Project.Configurations/.github/actions/upload-coverage-packages@main
         with:
