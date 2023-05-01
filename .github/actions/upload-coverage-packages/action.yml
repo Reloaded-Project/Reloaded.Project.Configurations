@@ -37,6 +37,11 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: "Upload Merged Coverage"
+      uses: actions/upload-artifact@v3
+      with:
+        path: ${{ inputs.code-coverage-path }}
+
     - name: Codecov
       uses: codecov/codecov-action@v3
       with:
