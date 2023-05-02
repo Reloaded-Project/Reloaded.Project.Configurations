@@ -244,6 +244,8 @@ Use like this:
 .\FixUndeclaredAPIs.ps1 ../Your.Project/Your.Project.csproj
 ```
 
+If you ever run into: `Could not load file or assembly 'Microsoft.CodeAnalysis, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35'. The system cannot find the file specified.`, remove source generator project dependency temporarily.
+
 ## License
 
 This repository is licensed under the LGPLv3 license; as per the license of the Reloaded Project (sans. Reloaded
