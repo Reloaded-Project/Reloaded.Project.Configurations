@@ -186,7 +186,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: coverage-${{ matrix.os }}-${{ matrix.targetFramework }}
-          path: Coverage/*/coverage.opencover.xml
+          path: Coverage/*/coverage.cobertura.xml
   upload:
     needs: build
     runs-on: ubuntu-latest
@@ -207,11 +207,12 @@ jobs:
             path: artifacts
       - name: "Merge Coverage Files"
         run: |
-            reportgenerator -reports:"./artifacts/**/coverage.opencover.xml" -targetdir:merged -reporttypes:Cobertura
+            dotnet tool install --global dotnet-coverage
+            dotnet-coverage merge ./artifacts/*.cobertura.xml --recursive --output ./Cobertura.xml --output-format xml
       - name: "Upload Coverage & Packages"
         uses: Reloaded-Project/Reloaded.Project.Configurations/.github/actions/upload-coverage-packages@main
         with:
-          code-coverage-path: './merged/Cobertura.xml'
+          code-coverage-path: './Cobertura.xml'
           changelog-path: './Changelog.md'
           nupkg-glob: './src/*.nupkg'
           nuget-key: ${{ secrets.NUGET_KEY }}
