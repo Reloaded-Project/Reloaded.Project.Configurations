@@ -40,6 +40,7 @@ runs:
     - name: "Upload Merged Coverage"
       uses: actions/upload-artifact@v3
       with:
+        name: Merged Coverage
         path: ${{ inputs.code-coverage-path }}
 
     - name: Codecov
