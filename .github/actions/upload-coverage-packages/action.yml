@@ -37,6 +37,16 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Print input variables
+      shell: bash
+      run: |
+        echo "code-coverage-path: ${{ inputs.code-coverage-path }}"
+        echo "changelog-path: ${{ inputs.changelog-path }}"
+        echo "nupkg-glob: ${{ inputs.nupkg-glob }}"
+        echo "changelog-template: ${{ inputs.changelog-template }}"
+        echo "is-release: ${{ inputs.is-release }}"
+        echo "release-tag: ${{ inputs.release-tag }}"
+
     - name: "Upload Merged Coverage"
       uses: actions/upload-artifact@v3
       with:
