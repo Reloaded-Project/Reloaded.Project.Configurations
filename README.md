@@ -207,7 +207,7 @@ jobs:
             path: artifacts
       - name: "Merge Coverage Files"
         run: |
-            find ./artifacts -name 'coverage.opencover.xml' -exec reportgenerator -reports:{} -targetdir:merged -reporttypes:Cobertura \;
+            reportgenerator -reports:"./artifacts/**/coverage.opencover.xml" -targetdir:merged -reporttypes:Cobertura
       - name: "Upload Coverage & Packages"
         uses: Reloaded-Project/Reloaded.Project.Configurations/.github/actions/upload-coverage-packages@main
         with:
