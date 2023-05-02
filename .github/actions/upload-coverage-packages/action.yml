@@ -91,7 +91,7 @@ runs:
 
     - name: Upload to GitHub Releases
       uses: softprops/action-gh-release@v0.1.15
-      if: ${{ inputs.is-release }} == "true"
+      if: ${{ inputs.is-release == 'true' }}
       with:
         # Path to load note-worthy description of changes in release from
         body_path: ${{ inputs.changelog-path }}
@@ -102,7 +102,7 @@ runs:
 
     - name: Upload to NuGet (on Tag)
       shell: pwsh
-      if: ${{ inputs.is-release }} == "true"
+      if: ${{ inputs.is-release == 'true' }}
       run: |
         $items = Get-ChildItem -Path "${{ inputs.nupkg-glob }}" -Recurse
         Foreach ($item in $items)
