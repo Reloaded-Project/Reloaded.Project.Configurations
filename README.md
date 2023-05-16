@@ -218,6 +218,7 @@ jobs:
           nuget-key: ${{ secrets.NUGET_KEY }}
           changelog-template: 'keepachangelog'
           is-release: ${{ startsWith(github.ref, 'refs/tags/') }}
+          release-tag: ${{ github.ref_name }}
 ```
 
 The required components for reporting coverage should already be there provided `NuGet.Build.props` is included as
