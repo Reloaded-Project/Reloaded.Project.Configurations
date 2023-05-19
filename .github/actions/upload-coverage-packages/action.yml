@@ -16,6 +16,11 @@ inputs:
     required: false
     default: './src/*.nupkg'
 
+  snupkg-glob: # id of input
+    description: 'Glob pattern for NuGet source packages'
+    required: false
+    default: './src/*.snupkg'
+
   nuget-key: # id of input
     description: 'Key used to upload packages to nuget.org'
     required: false
@@ -108,5 +113,12 @@ runs:
         Foreach ($item in $items)
         {
             Write-Host "Pushing $item"
+            dotnet nuget push "$item" -k "${{ inputs.nuget-key }}" -s "https://api.nuget.org/v3/index.json" --skip-duplicate
+        }
+
+        $items = Get-ChildItem -Path "${{ inputs.snupkg-glob }}" -Recurse
+        Foreach ($item in $items)
+        {
+            Write-Host "Pushing Symbol Package $item"
             dotnet nuget push "$item" -k "${{ inputs.nuget-key }}" -s "https://api.nuget.org/v3/index.json" --skip-duplicate
         }
