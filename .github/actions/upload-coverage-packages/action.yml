@@ -14,12 +14,12 @@ inputs:
   nupkg-glob: # id of input
     description: 'Glob pattern for NuGet packages'
     required: false
-    default: '*.nupkg'
+    default: '**.nupkg'
 
   snupkg-glob: # id of input
     description: 'Glob pattern for NuGet source packages'
     required: false
-    default: '*.snupkg'
+    default: '**.snupkg'
 
   nuget-key: # id of input
     description: 'Key used to upload packages to nuget.org'
@@ -84,6 +84,7 @@ runs:
         # A file, directory or wildcard pattern that describes what to upload
         path: |
           ${{ inputs.nupkg-glob }}
+          ${{ inputs.snupkg-glob }}
 
     - name: Upload Changelog Artifact
       uses: actions/upload-artifact@v3
@@ -103,6 +104,7 @@ runs:
         # Newline-delimited list of path globs for asset files to upload
         files: |
           ${{ inputs.nupkg-glob }}
+          ${{ inputs.snupkg-glob }}
           ${{ inputs.changelog-path }}
 
     - name: Upload to NuGet (on Tag)
