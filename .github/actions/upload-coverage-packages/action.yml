@@ -14,12 +14,12 @@ inputs:
   nupkg-glob: # id of input
     description: 'Glob pattern for NuGet packages'
     required: false
-    default: './src/*.nupkg'
+    default: '*.nupkg'
 
   snupkg-glob: # id of input
     description: 'Glob pattern for NuGet source packages'
     required: false
-    default: './src/*.snupkg'
+    default: '*.snupkg'
 
   nuget-key: # id of input
     description: 'Key used to upload packages to nuget.org'
