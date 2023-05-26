@@ -67,7 +67,7 @@ runs:
     - name: Create Changelog (on Tag)
       shell: pwsh
       run: |
-        if (${{ inputs.is-release }} -eq "true")
+        if (${{ inputs.is-release }} -eq $true)
         {
             auto-changelog --sort-commits date --hide-credit --template "${{ inputs.changelog-template }}" --commit-limit false --unreleased --starting-version "${{ inputs.release-tag }}" --output "${{ inputs.changelog-path }}"
         }
