@@ -3,7 +3,7 @@ param (
     [string]$CsProj
 )
 
-$numTargetFrameworks = 7
+$numTargetFrameworks = 8
 $command = "dotnet"
 $arguments = @("format", "analyzers", $CsProj, "--diagnostics", "RS0037", "RS0036", "RS0016", "RS0017")
 
