@@ -179,7 +179,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
           submodules: 'recursive'
@@ -190,16 +190,16 @@ jobs:
       - name: Run Tests
         run: dotnet test -c Release -f ${{ matrix.targetFramework }} ./src/Reloaded.<XXX>.Tests/Reloaded.<XXX>.Tests.csproj --collect:"XPlat Code Coverage;Format=opencover;" --results-directory "Coverage"
       - name: "Upload Coverage"
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: coverage-${{ matrix.os }}-${{ matrix.targetFramework }}
+          name: coverage-${{ matrix.os }}-${{ matrix.targetFramework }}-${{ matrix.platform }}
           path: Coverage/*/coverage.cobertura.xml
   upload:
     needs: build
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout Code"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
           submodules: 'recursive'
@@ -210,7 +210,7 @@ jobs:
       - name: "Install ReportGenerator"
         run: dotnet tool install --global dotnet-reportgenerator-globaltool
       - name: "Download Coverage Artifacts"
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
             path: artifacts
       - name: "Merge Coverage Files"
