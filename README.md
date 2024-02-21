@@ -131,10 +131,14 @@ name: Build, Test and Publish
 on:
   push:
     branches: [ main ]
+    paths:
+      - "src/**"
     tags:
       - '*'
   pull_request:
     branches: [ main ]
+    paths:
+      - "src/**"
   workflow_dispatch:
 
 jobs:
