@@ -78,6 +78,8 @@ To apply this to your project, do the following:
   admin.
 - Or on Linux, you can do `ln -s "Reloaded.Project.Configurations/.editorconfig" ".editorconfig"`.
 
+If you are on Windows, you may need to enable `Developer Mode` to be allowed to make symlinks.
+
 ### .solutionItems
 
 In each project you should make a `.solutionItems` folder and add any useful files (as existing files) from the folder
